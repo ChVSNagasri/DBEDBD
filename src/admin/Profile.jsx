@@ -62,10 +62,6 @@ function Profile() {
             value='9876543210'
           />
 
-          <button>
-            Update Profile
-          </button>
-
         </form>
 
       </div>
