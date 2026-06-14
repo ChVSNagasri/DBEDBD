@@ -1,116 +1,108 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import ReCAPTCHA from 'react-google-recaptcha'
-import OIP from '../images/OIP.jpg'
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+import OIP from '../images/OIP.jpg';
 
 function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [role, setRole] = useState('')
+  const [role, setRole] = useState('');
 
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
-  })
-
-  const [captchaValue, setCaptchaValue] = useState(null)
+    password: '',
+  });
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
-
-  const handleCaptcha = (value) => {
-    setCaptchaValue(value)
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-
-    if (!captchaValue) {
-      alert('Please complete the reCAPTCHA')
-      return
-    }
+    e.preventDefault();
 
     try {
       const res = await axios.post(
         'http://127.0.0.1:8000/auth/login',
         {
           email: formData.email,
-          password: formData.password
+          password: formData.password,
         }
-      )
+      );
 
-      // Check selected role matches backend role
+      // Verify selected role matches backend role
       if (res.data.role !== role) {
-        localStorage.removeItem('token')
-        localStorage.removeItem('role')
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
 
-        alert(`Invalid ${role} credentials`)
-        return
+        alert(`Invalid ${role} credentials`);
+        return;
       }
 
-      localStorage.setItem('token', res.data.token)
-      localStorage.setItem('role', res.data.role)
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('role', res.data.role);
 
-      alert('Login Success')
+      alert('Login Success');
 
-      if (res.data.role === 'ADMIN') {
-        navigate('/admin')
-      } else if (res.data.role === 'LIBRARIAN') {
-        navigate('/librarian')
-      } else if (res.data.role === 'STUDENT') {
-        navigate('/student')
+      switch (res.data.role) {
+        case 'ADMIN':
+          navigate('/admin');
+          break;
+        case 'LIBRARIAN':
+          navigate('/librarian');
+          break;
+        case 'STUDENT':
+          navigate('/student');
+          break;
+        default:
+          navigate('/');
       }
-
     } catch (err) {
-      alert(err.response?.data?.detail || 'Invalid Credentials')
+      alert(err.response?.data?.detail || 'Invalid Credentials');
     }
-  }
+  };
 
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
-
-      {/* LEFT IMAGE */}
+      {/* Left Side Image */}
       <div
         style={{
           flex: 1,
           background: '#8b5cf6',
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
         }}
       >
         <img
           src={OIP}
-          alt='Library'
+          alt="Library"
           style={{
-            borderRadius: '50%',
             width: '500px',
-            height: '500px'
+            height: '500px',
+            borderRadius: '50%',
+            objectFit: 'cover',
           }}
         />
       </div>
 
-      {/* RIGHT FORM */}
+      {/* Right Side Login */}
       <div
         style={{
           flex: 1,
+          background: '#f5f3ff',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          background: '#f5f3ff'
         }}
       >
-        <div className='form-container'>
-
+        <div className="form-container">
           <h1>KLU LIBRARY MANAGEMENT SYSTEM</h1>
 
-          {/* ROLE SELECTION */}
-          {!role && (
+          {!role ? (
             <>
               <h2>Select Role</h2>
 
@@ -118,92 +110,79 @@ function Login() {
                 👨‍💼 Admin
               </button>
 
-              <br /><br />
+              <br />
+              <br />
 
               <button onClick={() => setRole('LIBRARIAN')}>
                 📖 Librarian
               </button>
 
-              <br /><br />
+              <br />
+              <br />
 
               <button onClick={() => setRole('STUDENT')}>
                 👨‍🎓 Student
               </button>
             </>
-          )}
-
-          {/* LOGIN FORM */}
-          {role && (
+          ) : (
             <>
               <h2>{role} Login</h2>
 
               <form onSubmit={handleSubmit}>
-
                 <input
-                  type='email'
-                  name='email'
-                  placeholder='Email'
+                  type="email"
+                  name="email"
+                  placeholder="Email"
                   value={formData.email}
                   onChange={handleChange}
                   required
                 />
 
+                <br />
+                <br />
+
                 <input
-                  type='password'
-                  name='password'
-                  placeholder='Password'
+                  type="password"
+                  name="password"
+                  placeholder="Password"
                   value={formData.password}
                   onChange={handleChange}
                   required
                 />
 
-                <div
-                  className='recaptcha'
-                  style={{
-                    margin: '15px 0',
-                    display: 'flex',
-                    justifyContent: 'center'
-                  }}
-                >
-                  <ReCAPTCHA
-                    sitekey="6LeTh44sAAAAAB_9sWvEef204YGvLSfvs2eUQgWG"
-                    onChange={handleCaptcha}
-                  />
-                </div>
+                <br />
+                <br />
 
-                <button type='submit'>
+                <button type="submit">
                   Login
                 </button>
-
               </form>
 
               {role === 'STUDENT' && (
                 <p>
                   Don't have an account?{' '}
-                  <Link to='/register'>Register</Link>
+                  <Link to="/register">Register</Link>
                 </p>
               )}
 
               <button
                 style={{ marginTop: '10px' }}
                 onClick={() => {
-                  setRole('')
+                  setRole('');
                   setFormData({
                     email: '',
-                    password: ''
-                  })
-                  setCaptchaValue(null)
+                    password: '',
+                  });
                 }}
               >
                 ⬅ Back
               </button>
             </>
           )}
-
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;
