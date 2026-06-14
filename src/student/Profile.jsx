@@ -21,9 +21,7 @@ function Profile() {
             9876543210
           </p>
 
-          <button>
-            Edit Profile
-          </button>
+       
         </center>
       </div>
     </StudentLayout>
