@@ -38,19 +38,7 @@ function Profile() {
           <p><b>Role:</b> Librarian</p>
         </div>
 
-        <button
-          style={{
-            marginTop: "15px",
-            padding: "8px 16px",
-            border: "none",
-            borderRadius: "6px",
-            cursor: "pointer",
-            backgroundColor: "#4CAF50",
-            color: "white"
-          }}
-        >
-          Edit Profile
-        </button>
+      
       </div>
     </div>
   );
