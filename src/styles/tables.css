@@ -1,0 +1,35 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.table thead {
+  background: #c4b5fd;
+}
+
+.table th {
+  padding: 15px;
+  color: #4c1d95;
+  text-align: left;
+}
+
+.table td {
+  padding: 15px;
+  border-bottom: 1px solid #ede9fe;
+}
+
+.table tr:hover {
+  background: #f5f3ff;
+}
+
+.table button {
+  background: #8b5cf6;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  margin-right: 10px;
+}
