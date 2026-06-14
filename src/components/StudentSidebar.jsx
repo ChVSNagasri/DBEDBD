@@ -7,15 +7,31 @@ function StudentSidebar() {
       <h2 className='logo'>👨‍🎓 Student</h2>
 
       <nav className='sidebar-nav'>
-        <Link to='/student/dashboard' className='nav-link'>Dashboard</Link>
-        <Link to='/student/available-books' className='nav-link'>Available Books</Link>
-        <Link to='/student/borrowed-books' className='nav-link'>Borrowed Books</Link>
-        <Link to='/student/wishlist' className='nav-link'>Wishlist</Link>
-        <Link to='/student/fine-status' className='nav-link'>Fine Status</Link>
-        <Link to='/student/profile' className='nav-link'>Profile</Link>
+        <Link to='/student/dashboard' className='nav-link'>
+          📊 Dashboard
+        </Link>
+
+        <Link to='/student/available-books' className='nav-link'>
+          📚 Available Books
+        </Link>
+
+        <Link to='/student/borrowed-books' className='nav-link'>
+          📖 Borrowed Books
+        </Link>
+
+        <Link to='/student/wishlist' className='nav-link'>
+          ❤️ Wishlist
+        </Link>
+
+
+        <Link to='/student/profile' className='nav-link'>
+          👤 Profile
+        </Link>
       </nav>
 
-      <Link to='/login' className='logout-link'>Logout</Link>
+      <Link to='/login' className='logout-link'>
+        🚪 Logout
+      </Link>
     </div>
   )
 }

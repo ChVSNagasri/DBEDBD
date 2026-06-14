@@ -75,7 +75,7 @@ function AdminDashboard() {
         <DashboardCard title="Students" value={students} icon="👨‍🎓" />
         <DashboardCard title="Librarians" value={librarians} icon="👨‍💼" />
         <DashboardCard title="Admins" value={admins} icon="🛡️" />
-        <DashboardCard title="Pending Fines" value={`₹${pendingFines}`} icon="💰" />
+      
       </div>
     </AdminLayout>
   );

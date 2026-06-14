@@ -62,11 +62,7 @@ function StudentDashboard() {
           icon="❤️"
         />
 
-        <DashboardCard
-          title="Fine Amount"
-          value={`₹${fineAmount}`}
-          icon="💰"
-        />
+       
       </div>
     </StudentLayout>
   );
