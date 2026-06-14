@@ -21,35 +21,43 @@ function Login() {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+  e.preventDefault()
 
-    try {
-      const res = await axios.post(
-        'http://127.0.0.1:8000/auth/login',
-        {
-          email: formData.email,
-          password: formData.password
-        }
-      )
-
-      localStorage.setItem('token', res.data.token)
-      localStorage.setItem('role', res.data.role)
-
-      alert('Login Success')
-
-      if (res.data.role === 'ADMIN') {
-        navigate('/admin')
-      } else if (res.data.role === 'LIBRARIAN') {
-        navigate('/librarian')
-      } else {
-        navigate('/student')
+  try {
+    const res = await axios.post(
+      'http://127.0.0.1:8000/auth/login',
+      {
+        email: formData.email,
+        password: formData.password
       }
+    )
 
-    } catch (err) {
-      alert(err.response?.data?.detail || 'Invalid Credentials')
+    // Check if selected role matches backend role
+    if (res.data.role !== role) {
+      localStorage.removeItem('token')
+      localStorage.removeItem('role')
+
+      alert(`Invalid ${role} credentials`)
+      return
     }
-  }
 
+    localStorage.setItem('token', res.data.token)
+    localStorage.setItem('role', res.data.role)
+
+    alert('Login Success')
+
+    if (res.data.role === 'ADMIN') {
+      navigate('/admin')
+    } else if (res.data.role === 'LIBRARIAN') {
+      navigate('/librarian')
+    } else if (res.data.role === 'STUDENT') {
+      navigate('/student')
+    }
+
+  } catch (err) {
+    alert(err.response?.data?.detail || 'Invalid Credentials')
+  }
+}
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
 
