@@ -67,12 +67,14 @@ function Login() {
 
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
-      {/* Left Side Image */}
+      
+      {/* Left Side */}
       <div
         style={{
           flex: 1,
           background: '#8b5cf6',
           display: 'flex',
+          flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
         }}
@@ -87,6 +89,24 @@ function Login() {
             objectFit: 'cover',
           }}
         />
+
+        {/* Team Members */}
+        <div
+          style={{
+            marginTop: '30px',
+            color: 'white',
+            textAlign: 'center',
+            fontSize: '18px',
+            lineHeight: '1.6',
+          }}
+        >
+          <h3 style={{ marginBottom: '10px' }}>Team Members</h3>
+          <p>
+            NAGASRI – 2500030484<br />
+            TAPASYANI – 2500031137<br />
+            SUPRIYA – 2500030483
+          </p>
+        </div>
       </div>
 
       {/* Right Side Login */}
@@ -110,15 +130,13 @@ function Login() {
                 👨‍💼 Admin
               </button>
 
-              <br />
-              <br />
+              <br /><br />
 
               <button onClick={() => setRole('LIBRARIAN')}>
                 📖 Librarian
               </button>
 
-              <br />
-              <br />
+              <br /><br />
 
               <button onClick={() => setRole('STUDENT')}>
                 👨‍🎓 Student
@@ -138,8 +156,7 @@ function Login() {
                   required
                 />
 
-                <br />
-                <br />
+                <br /><br />
 
                 <input
                   type="password"
@@ -150,8 +167,7 @@ function Login() {
                   required
                 />
 
-                <br />
-                <br />
+                <br /><br />
 
                 <button type="submit">
                   Login
